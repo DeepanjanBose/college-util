@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+.fullscreen-loader{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.c1,
+.c2 {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+}
+.c1{
+  animation: 3s ease 200ms infinite normal none running animateVertical;
+}
+.c2 {
+  animation: 3s ease 200ms infinite normal none running animateHorizontal;
+}
+
+
+@keyframes animateVertical {
+  0% {
+    height: 20px;
+    box-shadow: rgba(46, 81, 240, 0.70) 20px 40px, rgba(46, 81, 240, 0.70) -20px -40px;
+  }
+
+  35% {
+    height: 100px;
+    box-shadow: rgba(46, 81, 240, 0.70) 20px 0px, rgba(46, 81, 240, 0.70) -20px 0px;
+  }
+
+  70% {
+    height: 20px;
+    box-shadow: rgba(46, 81, 240, 0.70) 20px -40px, rgba(46, 81, 240, 0.70) -20px 40px;
+  }
+
+  100% {
+    box-shadow: rgba(46, 81, 240, 0.70) 20px 40px, rgba(46, 81, 240, 0.70) -20px -40px;
+  }
+}
+
+@keyframes animateHorizontal {
+  0% {
+    width: 20px;
+    box-shadow: rgba(54, 215, 183, 0.70) 40px -20px, rgba(54, 215, 183, 0.75) -40px 20px;
+  }
+
+  35% {
+    width: 100px;
+    box-shadow: rgba(54, 215, 183, 0.70) 0px -20px, rgba(54, 215, 183, 0.70) 0px 20px;
+  }
+
+  70% {
+    width: 20px;
+    box-shadow: rgba(54, 215, 183, 0.70) -40px -20px, rgba(54, 215, 183, 0.70) 40px 20px;
+  }
+
+  100% {
+    box-shadow: rgba(54, 215, 183, 0.70) 40px -20px, rgba(54, 215, 183, 0.70) -40px 20px;
+  }
+}
+
+.fullscreen-error{
+  width: 100vw;
+  height: 100vh;
+  padding: 30px 50px;
+  text-align: center;
+}
+.fullscreen-error > div{
+  min-width: 200px;
+}
+.hidden-initial {
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+.show-component{
+  opacity: 100%;
+}
+
+/* --page not found----------------------------- */
+.page-not-found{
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.page-not-found-logo{
+  min-width: 400px;
+  height: auto;
+  max-width: 600px;
+}
+
+.signup-form, .login-form {
+  background-image: url('./resources/document.jpg');
+  height: 100vh; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

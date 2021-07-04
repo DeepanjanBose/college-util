@@ -1,0 +1,15 @@
+import React from 'react';
+import './stylesheet/AdminLoader.css';
+
+export default function AdminLoader() {
+    
+    return (
+        <div className="spinner">
+            <div className="rect1"></div>
+            <div className="rect2"></div>
+            <div className="rect3"></div>
+            <div className="rect4"></div>
+            <div className="rect5"></div>
+        </div>
+    )
+}

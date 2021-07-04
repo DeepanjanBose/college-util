@@ -1,0 +1,7 @@
+#bckend
+/backend/node_modules
+
+
+#client
+/client/node_modules
+/client/.idea
