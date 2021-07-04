@@ -1,6 +1,6 @@
 # college-util
 
-### update
+### Todo List
 - [x] Home Page
 - [x] Login / Signup / Logout
 - [x] Route handling 
