@@ -1,8 +1,6 @@
 const mongoose  = require('mongoose');
 const ROLE      = require('./enum_role');
 
-
-
 const User = new mongoose.Schema({
     name: {
         type: String,

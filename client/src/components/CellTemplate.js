@@ -11,7 +11,6 @@ export default function CellTemplate({activeCell}) {
     const [fileList, setFileList]= useState([]);
     const [activeComponent] = useState(activeCell);
     //setActiveComponent(activeComponent)
-    
     const [error, setError] = useState(false);
     const [showLoader, toggleLoader] = useState(true);
     const [disabledButton, setDisabledButton] = useState(false);
@@ -22,23 +21,25 @@ export default function CellTemplate({activeCell}) {
         uploadImage: '',
         cell: activeComponent.trim()
     });
-
     const [showFile, setFileToShow] = useState(null);
-
     const [previewAvailable, setPreviewAvailable] = useState(false);
+
 
 
     let month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
 
+
+
     function pad(n) {
         return n < 10 ? "0"+n : n;
     }
-
     function getDate(date){
 
         let dateObject = new Date(date);
         return pad(dateObject.getDate())+" "+ month[dateObject.getMonth()] +" "+dateObject.getFullYear();
     }
+
+
 
     const getFileList = async (activeComponent, componentStatus) =>{
         try{
@@ -65,6 +66,8 @@ export default function CellTemplate({activeCell}) {
             setError(e.message)
         }
     }
+
+
 
     const deleteFile = (fileId) => {
         setDisabledButton(true);
@@ -102,6 +105,8 @@ export default function CellTemplate({activeCell}) {
         })
         .catch(err=>{setDisabledButton(false); console.log(err); alert(err.message)})
     }
+
+
 
     const downloadFile = (fileId, title, path) =>{
         axios.post('http://localhost:5000/files/downloadfile',{id: fileId}, {responseType: 'blob', withCredentials: true})
@@ -151,6 +156,8 @@ export default function CellTemplate({activeCell}) {
         .catch(err=>{ console.log(err); alert(err.message)})
 
     }
+
+    
 
     const uploadFile =(e) =>{
 

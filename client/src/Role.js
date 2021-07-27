@@ -6,5 +6,4 @@ const roleOption = [
     {text: "NSS Cell", value: "NSS_CELL"},
     {text: "MAR Cell", value: "MAR_CELL"},
 ]
-
 export default roleOption;
