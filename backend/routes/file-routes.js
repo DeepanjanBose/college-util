@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 
 
 //1000-s 1001-invcred/unauth 1002-server 1003-invalidurl
+
 router.get('/getfiles/:cell', async(req, res)=>{
     try{
         //check for authorization.

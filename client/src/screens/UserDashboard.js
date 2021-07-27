@@ -133,16 +133,19 @@ export default function AdminDashboard() {
                 <div className="content-container">
                     <main className="content">
                         <div className="fluid-container">
-                        {ActiveComponent?(<ActiveComponent activeCell={urlComponent[3]} key={urlComponent[3]}/>):(<Grid centered columns={2}>
-                                                <Grid.Column>
-                                                <Message negative>
-                                                    <Message.Header>Invalid URL</Message.Header>
-                                                    <p>Please check the url or go back to dashboard  
-                                                        <Link to="/user/dashboard"> home</Link>
-                                                    </p>
-                                                </Message>
-                                                </Grid.Column>
-                                                </Grid>)}
+                        {ActiveComponent?
+                        (<ActiveComponent activeCell={urlComponent[3]} key={urlComponent[3]}/>)
+                        :
+                        (<Grid centered columns={2}>
+                            <Grid.Column>
+                                <Message negative>
+                                    <Message.Header>Invalid URL</Message.Header>
+                                    <p>Please check the url or go back to dashboard  
+                                    <Link to="/user/dashboard"> home</Link>
+                                    </p>
+                                </Message>
+                            </Grid.Column>
+                        </Grid>)}
                         </div>
                     </main>
                 </div>

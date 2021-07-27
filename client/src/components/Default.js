@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Grid } from 'semantic-ui-react';
+import { Card, Grid ,Button, Modal} from 'semantic-ui-react';
 import axios from "axios";
 import AdminLoader from './AdminLoader';
 import fileDownload from 'js-file-download';
+import Messenger from './messenger/Messenger';
 
 export default function Default() {
 
@@ -10,6 +11,7 @@ export default function Default() {
     const [myRecentFiles, setMyRecentFiles] = useState([]);
     const [showLoader, toggleLoader] = useState(true);
     const [disabledButton, setDisabledButton] = useState(false);
+    const [open, setOpen] = useState(false);
 
 
     const getDayCount = (createdAt) =>{
@@ -157,90 +159,129 @@ export default function Default() {
     }, [])
 
 
-    if(showLoader)
+    if(showLoader){
         return <AdminLoader/>
+    }
 
     return (
-       <div>
-           <Grid columns="equal" padded="vertically" centered>
-                <Grid.Column width={6}>
-                    <Card fluid>
-                        <Card.Content>
-                            <Card.Header>Recent Uploads</Card.Header>
-                        </Card.Content>
-                        <Card.Content>
-                            {recentFiles.length!==0?(
-                                recentFiles.map((file, index)=>
-                                    index>2?(<></>):
-                                    <Card fluid key={file._id}>
-                                        <Card.Content>
-                                            <Card.Header>
-                                                {file.title.length > 30 ? file.title.substring(0, 30) + '...' : file.title}
-                                            </Card.Header>
-                                            <Card.Meta>
-                                                <i><b>By </b>{ file.uploadedBy?.email}</i> <small>{getDayCount(file.ctreatedAt)}</small>
-                                            </Card.Meta>
-                                            <Card.Meta>{file.uploadedUnder}</Card.Meta>
-                                            <Card.Description>
-                                                {file.description.length > 40 ? file.description.substring(0, 44) + '...' : file.description}
-                                            </Card.Description>
-                                        </Card.Content>
-                                        <div class="ui bottom attached button primary" onClick={()=>downloadFile(file._id, file.title, file.file_path)}>
-                                            <i class="download icon"></i>
-                                            Download
-                                        </div>
-                                    </Card>
-                                )
-                            ):(
-                                <NoDataAvailable text="No Record Found"/>
-                            )}
-                            
-                        </Card.Content>
-                    </Card>
-                </Grid.Column>
-                <Grid.Column width={8}>
-                    <Card fluid>
-                        <Card.Content>
-                            <Card.Header>My Uploads</Card.Header>
-                        </Card.Content>
-                        <Card.Content>
-                            {/* <NoDataAvailable text="No Record Found"/> */}
-                            {myRecentFiles.length!==0?(
-                                myRecentFiles.map((file, index)=>
-                                        index>2?(<></>):
-                                    <Card fluid key={file._id}>
-                                        <Card.Content>
-                                            <Card.Header>
-                                                {file.title.length > 40 ? file.title.substring(0, 45) + '...' : file.title}
-                                            </Card.Header>
-                                            <Card.Meta>
-                                                <i><b>By </b>{file.uploadedBy?.email}</i> <small>{getDayCount(file.createdAt)}</small>
-                                            </Card.Meta>
-                                            <Card.Meta>{file.uploadedUnder}</Card.Meta>
-                                            <Card.Description>
-                                                {file.description.length > 50 ? file.description.substring(0, 65) + '...' : file.description}
-                                            </Card.Description>
-                                        </Card.Content>
-                                        <div class="ui two buttons attached">
-                                            <div class="ui bottom attached button primary" onClick={()=>downloadFile(file._id, file.title, file.file_path)}>
-                                                <i class="download icon"></i>
-                                                Download
-                                            </div>
-                                            <div class="ui bottom attached button negative" onClick={(e)=>deleteFile(file._id)}>
-                                                <i class="remove icon"></i>
-                                                Delete
-                                            </div>
-                                        </div>
-                                    </Card>
-                                )
-                            ):(
-                                <NoDataAvailable text="No Record Found"/>
-                            )}
-                            
-                        </Card.Content>
-                    </Card>
-                </Grid.Column>
-           </Grid>
+        <div>
+            {
+                open ? 
+                (<Modal
+                    onClose={() => setOpen(false)}
+                    onOpen={() => setOpen(true)}
+                    open={open}
+                  >
+                    <Modal.Header>Chat</Modal.Header>
+                    <Modal.Content>
+                      <Messenger/>
+                    </Modal.Content>
+                    {/* <Modal.Actions>
+                      <Button color='black' onClick={() => setOpen(false)}>
+                        Nope
+                      </Button>
+                      <Button
+                        content="Yep, that's me"
+                        labelPosition='right'
+                        icon='checkmark'
+                        onClick={() => setOpen(false)}
+                        positive
+                      />
+                    </Modal.Actions> */}
+                  </Modal>
+                )
+                :
+                (        
+                <div>
+                    <Grid columns="equal" padded="vertically" >
+                        <Grid.Row centered>
+                            <Grid.Column width={6}>
+                                <Card fluid>
+                                    <Card.Content>
+                                        <Card.Header>Recent Uploads</Card.Header>
+                                    </Card.Content>
+                                    <Card.Content>
+                                        {recentFiles.length!==0?(
+                                            recentFiles.map((file, index)=>
+                                                index>2?(<></>):
+                                                <Card fluid key={file._id}>
+                                                    <Card.Content>
+                                                        <Card.Header>
+                                                            {file.title.length > 30 ? file.title.substring(0, 30) + '...' : file.title}
+                                                        </Card.Header>
+                                                        <Card.Meta>
+                                                            <i><b>By </b>{ file.uploadedBy?.email}</i> <small>{getDayCount(file.ctreatedAt)}</small>
+                                                        </Card.Meta>
+                                                        <Card.Meta>{file.uploadedUnder}</Card.Meta>
+                                                        <Card.Description>
+                                                            {file.description.length > 40 ? file.description.substring(0, 44) + '...' : file.description}
+                                                        </Card.Description>
+                                                    </Card.Content>
+                                                    <div className="ui bottom attached button primary" onClick={()=>downloadFile(file._id, file.title, file.file_path)}>
+                                                        <i className="download icon"></i>
+                                                        Download
+                                                    </div>
+                                                </Card>
+                                            )
+                                        ):(
+                                            <NoDataAvailable text="No Record Found"/>
+                                        )}
+                                        
+                                    </Card.Content>
+                                </Card>
+                            </Grid.Column>
+                            <Grid.Column width={8}>
+                                <Card fluid>
+                                    <Card.Content>
+                                        <Card.Header>My Uploads</Card.Header>
+                                    </Card.Content>
+                                    <Card.Content>
+                                        {/* <NoDataAvailable text="No Record Found"/> */}
+                                        {myRecentFiles.length!==0?(
+                                            myRecentFiles.map((file, index)=>
+                                                    index>2?(<></>):
+                                                <Card fluid key={file._id}>
+                                                    <Card.Content>
+                                                        <Card.Header>
+                                                            {file.title.length > 40 ? file.title.substring(0, 45) + '...' : file.title}
+                                                        </Card.Header>
+                                                        <Card.Meta>
+                                                            <i><b>By </b>{file.uploadedBy?.email}</i> <small>{getDayCount(file.createdAt)}</small>
+                                                        </Card.Meta>
+                                                        <Card.Meta>{file.uploadedUnder}</Card.Meta>
+                                                        <Card.Description>
+                                                            {file.description.length > 50 ? file.description.substring(0, 65) + '...' : file.description}
+                                                        </Card.Description>
+                                                    </Card.Content>
+                                                    <div className="ui two buttons attached">
+                                                        <div className="ui bottom attached button primary" onClick={()=>downloadFile(file._id, file.title, file.file_path)}>
+                                                            <i className="download icon"></i>
+                                                            Download
+                                                        </div>
+                                                        <div class="ui bottom attached button negative" onClick={(e)=>deleteFile(file._id)}>
+                                                            <i className="remove icon"></i>
+                                                            Delete
+                                                        </div>
+                                                    </div>
+                                                </Card>
+                                            )
+                                        ):(
+                                            <NoDataAvailable text="No Record Found"/>
+                                        )}
+                                        
+                                    </Card.Content>
+                                </Card>
+                            </Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row centered>
+                                <Grid.Column textAlign="right" width={15}>
+                                <Button circular size="huge" color='facebook' icon='comment alternate' onClick={()=>{setOpen(true)}}/>
+                                </Grid.Column>
+                            </Grid.Row>
+                    </Grid>
+                </div>
+                )
+            }
        </div>
     )
 }

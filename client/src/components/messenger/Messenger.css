@@ -1,0 +1,40 @@
+.chatMenuWrapper {
+  overflow-y: scroll;
+  height: 68vh;
+}
+.chatMenuInput {
+  width: 90%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.chatBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chatBoxTop {
+  height: 60vh;
+  overflow-y: scroll;
+}
+.chatBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chatMessageInput {
+  width: 80%;
+  height: 60px;
+  padding: 10px;
+}
+.noConversationText {
+  position: absolute;
+  top: 5vh;
+  font-size: 25px;
+  cursor: default;
+  color: rgb(224, 220, 220);
+  text-align: center;
+}
